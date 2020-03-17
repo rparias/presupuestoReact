@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Error from './Error';
 
 function Pregunta() {
   const [quantity, updateQuantity] = useState(0);
@@ -18,7 +19,6 @@ function Pregunta() {
     }
 
     //continuar con el proceso
-    console.log(error);
     updateError(false);
   };
 
@@ -29,6 +29,7 @@ function Pregunta() {
   return (
     <div>
       <h2>Coloca tu presupuesto</h2>
+      {error ? <Error message="El presupuesto es incorrecto" /> : null}
       <form onSubmit={addPresupuesto}>
         <input
           type="number"
