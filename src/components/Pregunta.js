@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 function Pregunta() {
   const [quantity, updateQuantity] = useState(0);
+  const [error, updateError] = useState(false);
 
   const definePresupuesto = e => {
     updateQuantity(parseInt(e.target.value));
@@ -11,8 +12,18 @@ function Pregunta() {
     e.preventDefault();
 
     //validar
+    if (validateNumberFormat()) {
+      updateError(true);
+      return;
+    }
 
     //continuar con el proceso
+    console.log(error);
+    updateError(false);
+  };
+
+  const validateNumberFormat = () => {
+    return quantity < 1 || isNaN(quantity);
   };
 
   return (
