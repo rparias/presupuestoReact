@@ -21,7 +21,7 @@ function App() {
 
       updateIsCreatingExpense(false);
     }
-  }, [expense]);
+  }, [expense, expenses, isCreatingExpense, restante]);
 
   return (
     <div className="container">
