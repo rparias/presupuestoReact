@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Error from './Error';
 
-function Pregunta() {
+function Pregunta({ updatePresupuesto, updateRestante }) {
   const [quantity, updateQuantity] = useState(0);
   const [error, updateError] = useState(false);
 
@@ -20,6 +20,8 @@ function Pregunta() {
 
     //continuar con el proceso
     updateError(false);
+    updatePresupuesto(quantity);
+    updateRestante(quantity);
   };
 
   const validateNumberFormat = () => {
