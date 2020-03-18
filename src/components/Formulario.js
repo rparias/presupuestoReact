@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Error from './Error';
 import shortid from 'shortid';
 
-function Formulario() {
+function Formulario({ addExpense }) {
   const [descriptionExpense, updateDescriptionExpense] = useState('');
   const [quantity, updateQuantity] = useState(0);
   const [error, updateError] = useState(false);
@@ -31,8 +31,11 @@ function Formulario() {
     };
 
     //pasar el gasto al componente principal
+    addExpense(expense);
 
     //resetear el form
+    updateDescriptionExpense('');
+    updateQuantity(0);
   };
 
   const isNotValidData = () => {
