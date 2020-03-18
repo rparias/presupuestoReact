@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Error from './Error';
+import shortid from 'shortid';
 
 function Formulario() {
   const [descriptionExpense, updateDescriptionExpense] = useState('');
@@ -23,6 +24,11 @@ function Formulario() {
     updateError(false);
 
     //construir el gasto
+    const expense = {
+      descriptionExpense,
+      quantity,
+      id: shortid.generate()
+    };
 
     //pasar el gasto al componente principal
 
