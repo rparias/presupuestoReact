@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import Error from './Error';
 
 function Formulario() {
   const [descriptionExpense, updateDescriptionExpense] = useState('');
   const [quantity, updateQuantity] = useState(0);
+  const [error, updateError] = useState(false);
 
   const handleDescription = e => {
     updateDescriptionExpense(e.target.value);
@@ -14,6 +16,11 @@ function Formulario() {
     e.preventDefault();
 
     //validar
+    if (isNotValidData()) {
+      updateError(true);
+      return;
+    }
+    updateError(false);
 
     //construir el gasto
 
@@ -22,10 +29,17 @@ function Formulario() {
     //resetear el form
   };
 
+  const isNotValidData = () => {
+    return quantity < 1 || isNaN(quantity) || descriptionExpense.trim() === '';
+  };
+
   return (
     <div>
-      <h2>Agrega tus gastos aqui</h2>
       <form onSubmit={handleSubmit}>
+        <h2>Agrega tus gastos aqui</h2>
+        {error ? (
+          <Error message="Ambos campos son obligatorios o Presupuesto incorrecto" />
+        ) : null}
         <div className="campo">
           <label>Nombre Gasto</label>
           <input
