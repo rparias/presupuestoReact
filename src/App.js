@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Pregunta from './components/Pregunta';
 import Formulario from './components/Formulario';
 import Listado from './components/Listado';
@@ -9,10 +9,19 @@ function App() {
   const [restante, updateRestante] = useState(0);
   const [showPregunta, updateShowPregunta] = useState(true);
   const [expenses, updateExpenses] = useState([]);
+  const [expense, updateExpense] = useState({});
+  const [isCreatingExpense, updateIsCreatingExpense] = useState(false);
 
-  const addExpense = expense => {
-    updateExpenses([...expenses, expense]);
-  };
+  useEffect(() => {
+    if (isCreatingExpense) {
+      updateExpenses([...expenses, expense]);
+
+      const presupuestoRestante = restante - expense.quantity;
+      updateRestante(presupuestoRestante);
+
+      updateIsCreatingExpense(false);
+    }
+  }, [expense]);
 
   return (
     <div className="container">
@@ -28,7 +37,10 @@ function App() {
           ) : (
             <div className="row">
               <div className="one-half column">
-                <Formulario addExpense={addExpense} />
+                <Formulario
+                  updateExpense={updateExpense}
+                  updateIsCreatingExpense={updateIsCreatingExpense}
+                />
               </div>
               <div className="one-half column">
                 <Listado expenses={expenses} />

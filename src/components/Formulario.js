@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Error from './Error';
 import shortid from 'shortid';
 
-function Formulario({ addExpense }) {
+function Formulario({ updateExpense, updateIsCreatingExpense }) {
   const [descriptionExpense, updateDescriptionExpense] = useState('');
   const [quantity, updateQuantity] = useState(0);
   const [error, updateError] = useState(false);
@@ -31,7 +31,8 @@ function Formulario({ addExpense }) {
     };
 
     //pasar el gasto al componente principal
-    addExpense(expense);
+    updateExpense(expense);
+    updateIsCreatingExpense(true);
 
     //resetear el form
     updateDescriptionExpense('');
